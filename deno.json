@@ -1,8 +1,11 @@
 {
   "name": "@dewars/color",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Color Library",
   "exports": {
     ".": "./mod.ts"
+  },
+  "imports": {
+    "@std/expect": "jsr:@std/expect@^0.224.2"
   }
 }
