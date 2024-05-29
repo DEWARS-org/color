@@ -1,0 +1,8 @@
+{
+  "name": "@dewars/color",
+  "version": "1.0.0",
+  "description": "Color Library",
+  "exports": {
+    ".": "./mod.ts"
+  }
+}

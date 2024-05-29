@@ -1,19 +1,21 @@
 /**
  * Color utilities with support for hex, RBG, arithmetic RBG, HSL, and integer
  * colors
- *
- * @author osbornb
  */
 export class ColorUtils {
   /**
    * Hex color pattern
    */
-  private static readonly hexColorPattern = new RegExp('^#?(([0-9a-fA-F]{3}){1,2}|([0-9a-fA-F]{4}){1,2})$');
+  private static readonly hexColorPattern = new RegExp(
+    "^#?(([0-9a-fA-F]{3}){1,2}|([0-9a-fA-F]{4}){1,2})$",
+  );
 
   /**
    * Hex single color pattern
    */
-  private static readonly hexSingleColorPattern = new RegExp('^[0-9a-fA-F]{1,2}$');
+  private static readonly hexSingleColorPattern = new RegExp(
+    "^[0-9a-fA-F]{1,2}$",
+  );
 
   /**
    * Convert the hex color values to a hex color, shorthanded when possible
@@ -27,8 +29,14 @@ export class ColorUtils {
    *
    * @return hex color in format #RGB or #RRGGBB
    */
-  public static toColorShorthand(red: string, green: string, blue: string): string {
-    return ColorUtils.shorthandHex(ColorUtils.toColor(red, green, blue) as string);
+  public static toColorShorthand(
+    red: string,
+    green: string,
+    blue: string,
+  ): string {
+    return ColorUtils.shorthandHex(
+      ColorUtils.toColor(red, green, blue) as string,
+    );
   }
 
   /**
@@ -44,8 +52,14 @@ export class ColorUtils {
    *
    * @return hex color in format #ARGB or #AARRGGBB
    */
-  public static toColorShorthandWithDefaultAlpha(red: string, green: string, blue: string): string {
-    return ColorUtils.shorthandHex(ColorUtils.toColorWithDefaultAlpha(red, green, blue) as string);
+  public static toColorShorthandWithDefaultAlpha(
+    red: string,
+    green: string,
+    blue: string,
+  ): string {
+    return ColorUtils.shorthandHex(
+      ColorUtils.toColorWithDefaultAlpha(red, green, blue) as string,
+    );
   }
 
   /**
@@ -62,8 +76,15 @@ export class ColorUtils {
    *
    * @return hex color in format #ARGB, #RGB, #AARRGGBB, or #RRGGBB
    */
-  public static toColorShorthandWithAlpha(red: string, green: string, blue: string, alpha: string): string {
-    return ColorUtils.shorthandHex(ColorUtils.toColorWithAlpha(red, green, blue, alpha) as string);
+  public static toColorShorthandWithAlpha(
+    red: string,
+    green: string,
+    blue: string,
+    alpha: string,
+  ): string {
+    return ColorUtils.shorthandHex(
+      ColorUtils.toColorWithAlpha(red, green, blue, alpha) as string,
+    );
   }
 
   /**
@@ -78,9 +99,13 @@ export class ColorUtils {
    *
    * @return integer color or hex color in format #RRGGBB
    */
-  public static toColor(red: string | number, green: string | number, blue: string | number): string | number {
+  public static toColor(
+    red: string | number,
+    green: string | number,
+    blue: string | number,
+  ): string | number {
     let color: number | string;
-    if (typeof red === 'number') {
+    if (typeof red === "number") {
       color = ColorUtils.toColorWithAlpha(red, green, blue, -1);
     } else {
       color = ColorUtils.toColorWithAlpha(red, green, blue, null);
@@ -108,11 +133,14 @@ export class ColorUtils {
     blue: string | number,
   ): string | number {
     let color: number | string;
-    if (typeof red === 'number') {
+    if (typeof red === "number") {
       color = ColorUtils.toColorWithAlpha(red, green, blue, 255);
     } else {
-      let defaultAlpha = 'FF';
-      if (red !== null && red.length > 0 && red.charAt(0).toLowerCase() === red.charAt(0)) {
+      let defaultAlpha = "FF";
+      if (
+        red !== null && red.length > 0 &&
+        red.charAt(0).toLowerCase() === red.charAt(0)
+      ) {
         defaultAlpha = defaultAlpha.toLowerCase();
       }
       color = ColorUtils.toColorWithAlpha(red, green, blue, defaultAlpha);
@@ -141,22 +169,28 @@ export class ColorUtils {
     blue: string | number,
     alpha: string | number | null,
   ): string | number {
-    let color: string | number = '';
-    if (typeof red === 'number' && typeof green === 'number' && typeof blue === 'number') {
+    let color: string | number = "";
+    if (
+      typeof red === "number" && typeof green === "number" &&
+      typeof blue === "number"
+    ) {
       ColorUtils.validateRGB(red);
       ColorUtils.validateRGB(green);
       ColorUtils.validateRGB(blue);
       color = ((red & 0xff) << 16) | ((green & 0xff) << 8) | (blue & 0xff);
-      if (typeof alpha === 'number' && alpha !== -1) {
+      if (typeof alpha === "number" && alpha !== -1) {
         ColorUtils.validateRGB(alpha);
         color = ((alpha & 0xff) << 24) | color;
       }
-    } else if (typeof red === 'string' && typeof green === 'string' && typeof blue === 'string') {
+    } else if (
+      typeof red === "string" && typeof green === "string" &&
+      typeof blue === "string"
+    ) {
       ColorUtils.validateHexSingle(red);
       ColorUtils.validateHexSingle(green);
       ColorUtils.validateHexSingle(blue);
-      color = '#';
-      if (alpha != null && typeof alpha === 'string') {
+      color = "#";
+      if (alpha != null && typeof alpha === "string") {
         color += ColorUtils.expandShorthandHexSingle(alpha);
       }
       color += ColorUtils.expandShorthandHexSingle(red);
@@ -181,7 +215,7 @@ export class ColorUtils {
     ColorUtils.validateRGB(color);
     hex = color.toString(16).toUpperCase();
     if (hex.length === 1) {
-      hex = '0' + hex;
+      hex = "0" + hex;
     }
     return hex;
   }
@@ -260,7 +294,7 @@ export class ColorUtils {
    * @return float color inclusively between 0.0 and 1.0
    */
   public static toArithmeticRGB(color: string | number): number {
-    if (typeof color === 'string') {
+    if (typeof color === "string") {
       color = ColorUtils.toRGB(color);
     }
 
@@ -284,7 +318,11 @@ export class ColorUtils {
    *            lightness inclusively between 0.0 and 1.0
    * @return arithmetic RGB array where: 0 = red, 1 = green, 2 = blue
    */
-  public static toArithmeticRGBFromHSL(hue: number, saturation: number, lightness: number): number[] {
+  public static toArithmeticRGBFromHSL(
+    hue: number,
+    saturation: number,
+    lightness: number,
+  ): number[] {
     ColorUtils.validateHue(hue);
     ColorUtils.validateSaturation(saturation);
     ColorUtils.validateLightness(lightness);
@@ -316,7 +354,7 @@ export class ColorUtils {
   public static toRGB(color: string | number): number {
     let colorNumber: number;
 
-    if (typeof color === 'number') {
+    if (typeof color === "number") {
       ColorUtils.validateArithmeticRGB(color);
       colorNumber = Math.round(255 * color);
     } else {
@@ -341,8 +379,16 @@ export class ColorUtils {
    *            lightness inclusively between 0.0 and 1.0
    * @return RGB integer array where: 0 = red, 1 = green, 2 = blue
    */
-  public static toRGBFromHSL(hue: number, saturation: number, lightness: number): number[] {
-    const arithmeticRGB = ColorUtils.toArithmeticRGBFromHSL(hue, saturation, lightness);
+  public static toRGBFromHSL(
+    hue: number,
+    saturation: number,
+    lightness: number,
+  ): number[] {
+    const arithmeticRGB = ColorUtils.toArithmeticRGBFromHSL(
+      hue,
+      saturation,
+      lightness,
+    );
     const rgb = [
       ColorUtils.toRGB(arithmeticRGB[0]),
       ColorUtils.toRGB(arithmeticRGB[1]),
@@ -394,7 +440,7 @@ export class ColorUtils {
   private static getHexSingle(hex: string, colorIndex: number): string {
     ColorUtils.validateHex(hex);
 
-    if (hex.startsWith('#')) {
+    if (hex.startsWith("#")) {
       hex = hex.substring(1);
     }
 
@@ -430,7 +476,7 @@ export class ColorUtils {
    */
   public static getRed(color: string | number): string | number {
     let red: number | string;
-    if (typeof color === 'number') {
+    if (typeof color === "number") {
       red = (color >> 16) & 0xff;
     } else {
       red = ColorUtils.getHexSingle(color, 0);
@@ -448,7 +494,7 @@ export class ColorUtils {
    */
   public static getGreen(color: string | number): string | number {
     let green: number | string;
-    if (typeof color === 'number') {
+    if (typeof color === "number") {
       green = (color >> 8) & 0xff;
     } else {
       green = ColorUtils.getHexSingle(color, 1);
@@ -466,7 +512,7 @@ export class ColorUtils {
    */
   public static getBlue(color: string | number): string | number {
     let blue: number | string;
-    if (typeof color === 'number') {
+    if (typeof color === "number") {
       blue = color & 0xff;
     } else {
       blue = ColorUtils.getHexSingle(color, 2);
@@ -484,7 +530,7 @@ export class ColorUtils {
    */
   public static getAlpha(color: string | number): string | number {
     let alpha: number | string | null = null;
-    if (typeof color === 'number') {
+    if (typeof color === "number") {
       alpha = (color >> 24) & 0xff;
     } else {
       alpha = ColorUtils.getHexSingle(color, -1);
@@ -503,14 +549,16 @@ export class ColorUtils {
   public static shorthandHex(color: string): string {
     ColorUtils.validateHex(color);
     if (color.length > 5) {
-      let shorthandColor: string | null = '';
+      let shorthandColor: string | null = "";
       let startIndex = 0;
-      if (color.startsWith('#')) {
-        shorthandColor += '#';
+      if (color.startsWith("#")) {
+        shorthandColor += "#";
         startIndex++;
       }
       for (; startIndex < color.length; startIndex += 2) {
-        const shorthand = ColorUtils.shorthandHexSingle(color.substring(startIndex, startIndex + 2));
+        const shorthand = ColorUtils.shorthandHexSingle(
+          color.substring(startIndex, startIndex + 2),
+        );
         if (shorthand.length > 1) {
           shorthandColor = null;
           break;
@@ -535,14 +583,16 @@ export class ColorUtils {
   public static expandShorthandHex(color: string): string {
     ColorUtils.validateHex(color);
     if (color.length < 6) {
-      let expandColor = '';
+      let expandColor = "";
       let startIndex = 0;
-      if (color.startsWith('#')) {
-        expandColor += '#';
+      if (color.startsWith("#")) {
+        expandColor += "#";
         startIndex++;
       }
       for (; startIndex < color.length; startIndex++) {
-        const expand = ColorUtils.expandShorthandHexSingle(color.substring(startIndex, startIndex + 1));
+        const expand = ColorUtils.expandShorthandHexSingle(
+          color.substring(startIndex, startIndex + 1),
+        );
         expandColor += expand;
       }
       color = expandColor.toString();
@@ -559,7 +609,10 @@ export class ColorUtils {
    */
   public static shorthandHexSingle(color: string): string {
     ColorUtils.validateHexSingle(color);
-    if (color.length > 1 && color.charAt(0).toUpperCase() === color.charAt(1).toUpperCase()) {
+    if (
+      color.length > 1 &&
+      color.charAt(0).toUpperCase() === color.charAt(1).toUpperCase()
+    ) {
       color = color.substring(0, 1);
     }
     return color;
@@ -600,7 +653,7 @@ export class ColorUtils {
   public static validateHex(color: string) {
     if (!ColorUtils.isValidHex(color)) {
       throw new Error(
-        'Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB, or ARGB, invalid value: ' +
+        "Hex color must be in format #RRGGBB, #RGB, #AARRGGBB, #ARGB, RRGGBB, RGB, AARRGGBB, or ARGB, invalid value: " +
           color,
       );
     }
@@ -625,7 +678,7 @@ export class ColorUtils {
    */
   public static validateHexSingle(color: string) {
     if (!ColorUtils.isValidHexSingle(color)) {
-      throw new Error('Must be in format FF or F, invalid value: ' + color);
+      throw new Error("Must be in format FF or F, invalid value: " + color);
     }
   }
 
@@ -648,7 +701,9 @@ export class ColorUtils {
    */
   public static validateRGB(color: number) {
     if (!ColorUtils.isValidRGB(color)) {
-      throw new Error('Must be inclusively between 0 and 255, invalid value: ' + color);
+      throw new Error(
+        "Must be inclusively between 0 and 255, invalid value: " + color,
+      );
     }
   }
 
@@ -673,7 +728,9 @@ export class ColorUtils {
    */
   public static validateArithmeticRGB(color: number) {
     if (!ColorUtils.isValidArithmeticRGB(color)) {
-      throw new Error('Must be inclusively between 0.0 and 1.0, invalid value: ' + color);
+      throw new Error(
+        "Must be inclusively between 0.0 and 1.0, invalid value: " + color,
+      );
     }
   }
 
@@ -697,7 +754,9 @@ export class ColorUtils {
    */
   public static validateHue(hue: number) {
     if (!ColorUtils.isValidHue(hue)) {
-      throw new Error('Must be inclusively between 0.0 and 360.0, invalid value: ' + hue);
+      throw new Error(
+        "Must be inclusively between 0.0 and 360.0, invalid value: " + hue,
+      );
     }
   }
 
@@ -722,7 +781,9 @@ export class ColorUtils {
    */
   public static validateSaturation(saturation: number) {
     if (!ColorUtils.isValidSaturation(saturation)) {
-      throw new Error('Must be inclusively between 0.0 and 1.0, invalid value: ' + saturation);
+      throw new Error(
+        "Must be inclusively between 0.0 and 1.0, invalid value: " + saturation,
+      );
     }
   }
 
@@ -746,7 +807,9 @@ export class ColorUtils {
    */
   public static validateLightness(lightness: number) {
     if (!ColorUtils.isValidLightness(lightness)) {
-      throw new Error('Must be inclusively between 0.0 and 1.0, invalid value: ' + lightness);
+      throw new Error(
+        "Must be inclusively between 0.0 and 1.0, invalid value: " + lightness,
+      );
     }
   }
 }

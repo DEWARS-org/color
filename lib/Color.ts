@@ -1,11 +1,9 @@
-import { ColorConstants } from './ColorConstants';
-import { ColorUtils } from './ColorUtils';
+import { ColorConstants } from "./ColorConstants.ts";
+import { ColorUtils } from "./ColorUtils.ts";
 
 /**
  * Color representation with support for hex, RBG, arithmetic RBG, HSL, and
  * integer colors
- *
- * @author osbornb
  */
 export class Color {
   /**
@@ -194,7 +192,7 @@ export class Color {
    *            AARRGGBB, #ARGB, or ARGB
    */
   public setColor(color: string | number | string): void {
-    if (typeof color === 'number') {
+    if (typeof color === "number") {
       this.setRed(ColorUtils.getRed(color));
       this.setGreen(ColorUtils.getGreen(color));
       this.setBlue(ColorUtils.getBlue(color));
@@ -224,8 +222,17 @@ export class Color {
    * @param alpha
    *            alpha inclusively between 0.0 and 1.0
    */
-  public setColorByHSL(hue: number, saturation: number, lightness: number, alpha?: number): void {
-    const arithmeticRGB = ColorUtils.toArithmeticRGBFromHSL(hue, saturation, lightness);
+  public setColorByHSL(
+    hue: number,
+    saturation: number,
+    lightness: number,
+    alpha?: number,
+  ): void {
+    const arithmeticRGB = ColorUtils.toArithmeticRGBFromHSL(
+      hue,
+      saturation,
+      lightness,
+    );
     this.setRed(arithmeticRGB[0]);
     this.setGreen(arithmeticRGB[1]);
     this.setBlue(arithmeticRGB[2]);
@@ -241,13 +248,13 @@ export class Color {
    *            red integer color inclusively between 0 and 255 or red hex color in format RR or R
    */
   public setRed(red: string | number): void {
-    if (typeof red === 'number') {
+    if (typeof red === "number") {
       if (Number.isInteger(red) && red !== 0 && red !== 1) {
         red = ColorUtils.toHex(red);
       }
     }
 
-    if (typeof red === 'string') {
+    if (typeof red === "string") {
       red = ColorUtils.toArithmeticRGB(red);
     }
     ColorUtils.validateArithmeticRGB(red);
@@ -261,13 +268,13 @@ export class Color {
    *            green integer color inclusively between 0 and 255 or in format GG or G
    */
   public setGreen(green: string | number): void {
-    if (typeof green === 'number') {
+    if (typeof green === "number") {
       if (Number.isInteger(green) && green !== 0 && green !== 1) {
         green = ColorUtils.toHex(green);
       }
     }
 
-    if (typeof green === 'string') {
+    if (typeof green === "string") {
       green = ColorUtils.toArithmeticRGB(green);
     }
     ColorUtils.validateArithmeticRGB(green);
@@ -281,13 +288,13 @@ export class Color {
    *            blue integer color inclusively between 0 and 255 or in format BB or B
    */
   public setBlue(blue: string | number): void {
-    if (typeof blue === 'number') {
+    if (typeof blue === "number") {
       if (Number.isInteger(blue) && blue !== 0 && blue !== 1) {
         blue = ColorUtils.toHex(blue);
       }
     }
 
-    if (typeof blue === 'string') {
+    if (typeof blue === "string") {
       blue = ColorUtils.toArithmeticRGB(blue);
     }
     ColorUtils.validateArithmeticRGB(blue);
@@ -312,7 +319,7 @@ export class Color {
    *            alpha float color inclusively between 0.0 and 1.0 or hex color in format AA or A
    */
   public setAlpha(alpha: string | number): void {
-    if (typeof alpha === 'string') {
+    if (typeof alpha === "string") {
       alpha = ColorUtils.toArithmeticRGB(alpha);
     } else if (Number.isInteger(alpha) && alpha !== 0 && alpha !== 1) {
       alpha = ColorUtils.toArithmeticRGB(alpha);
@@ -336,7 +343,11 @@ export class Color {
    * @return hex color in the format #RRGGBB
    */
   public getColorHex(): string {
-    return ColorUtils.toColor(this.getRedHex(), this.getGreenHex(), this.getBlueHex()) as string;
+    return ColorUtils.toColor(
+      this.getRedHex(),
+      this.getGreenHex(),
+      this.getBlueHex(),
+    ) as string;
   }
 
   /**
@@ -359,7 +370,11 @@ export class Color {
    * @return hex color in the format #RGB or #RRGGBB
    */
   public getColorHexShorthand(): string {
-    return ColorUtils.toColorShorthand(this.getRedHex(), this.getGreenHex(), this.getBlueHex());
+    return ColorUtils.toColorShorthand(
+      this.getRedHex(),
+      this.getGreenHex(),
+      this.getBlueHex(),
+    );
   }
 
   /**
@@ -382,7 +397,11 @@ export class Color {
    * @return integer color
    */
   public getColor(): number {
-    return ColorUtils.toColor(this.getRed(), this.getGreen(), this.getBlue()) as number;
+    return ColorUtils.toColor(
+      this.getRed(),
+      this.getGreen(),
+      this.getBlue(),
+    ) as number;
   }
 
   /**
@@ -391,7 +410,12 @@ export class Color {
    * @return integer color
    */
   public getColorWithAlpha(): number {
-    return ColorUtils.toColorWithAlpha(this.getRed(), this.getGreen(), this.getBlue(), this.getAlpha()) as number;
+    return ColorUtils.toColorWithAlpha(
+      this.getRed(),
+      this.getGreen(),
+      this.getBlue(),
+      this.getAlpha(),
+    ) as number;
   }
 
   /**

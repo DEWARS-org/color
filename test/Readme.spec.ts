@@ -1,8 +1,8 @@
-import { Color } from '../lib/Color';
-import { ColorConstants } from '../lib/ColorConstants';
+import { Color } from "../lib/Color.ts";
+import { ColorConstants } from "../lib/ColorConstants.ts";
 
-describe('Used for README', function () {
-  it('test color', function () {
+describe("Used for README", function () {
+  it("test color", function () {
     const rgb: Color = new Color();
     rgb.setRGB(154, 205, 50);
     const rgba: Color = new Color();
@@ -16,8 +16,8 @@ describe('Used for README', function () {
     const arithmeticRGBOpacity: Color = new Color();
     arithmeticRGBOpacity.setRGB(1.0, 0.64705882352, 0.0);
     arithmeticRGBOpacity.setOpacity(0.25098039215);
-    const hex: Color = Color.color('#BA55D3');
-    const hexAlpha: Color = Color.color('#D9FFFF00');
+    const hex: Color = Color.color("#BA55D3");
+    const hexAlpha: Color = Color.color("#D9FFFF00");
     const hexInteger: Color = new Color();
     hexInteger.setColor(0xffc000);
     const hexIntegerAlpha: Color = new Color();
@@ -27,11 +27,11 @@ describe('Used for README', function () {
     const integerAlpha: Color = new Color();
     integerAlpha.setColor(-12303292);
     const hexSingles: Color = new Color();
-    hexSingles.setRGB('FF', 'C0', 'CB');
+    hexSingles.setRGB("FF", "C0", "CB");
     const hexSinglesAlpha: Color = new Color();
-    hexSinglesAlpha.setRGB('00', '00', '00', '80');
+    hexSinglesAlpha.setRGB("00", "00", "00", "80");
     const hexSinglesOpacity: Color = new Color();
-    hexSinglesOpacity.setRGB('FF', 'A5', '00');
+    hexSinglesOpacity.setRGB("FF", "A5", "00");
     hexSinglesOpacity.setOpacity(0.25);
     const hsl: Color = new Color();
     hsl.setColorByHSL(300.0, 1.0, 0.2509804);
