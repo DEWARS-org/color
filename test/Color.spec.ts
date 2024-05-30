@@ -2349,7 +2349,7 @@ function validateColor2(
 function validateColor3(
   color: Color,
   colorInt: number,
-  colorAlphaInt: number,
+  _colorAlphaInt: number,
   hex: string,
   hexShorthand: string,
   hexAlpha: string,

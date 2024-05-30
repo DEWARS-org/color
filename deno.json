@@ -7,5 +7,17 @@
   },
   "imports": {
     "@std/expect": "jsr:@std/expect@^0.224.2"
+  },
+  "publish": {
+    "exclude": [
+      ".github",
+      ".vscode",
+      "tests"
+    ]
+  },
+  "test": {
+    "include": [
+      "test/*.spec.ts"
+    ]
   }
 }
