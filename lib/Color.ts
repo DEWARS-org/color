@@ -173,9 +173,7 @@ export class Color {
   /**
    * Create the color in hex
    *
-   * @param color
-   *            hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-   *            AARRGGBB, #ARGB, or ARGB
+   * @param color hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB, AARRGGBB, #ARGB, or ARGB
    * @return color
    */
   public static color(color: string): Color {
@@ -187,24 +185,34 @@ export class Color {
   /**
    * Set the color as a single integer or Set the color in hex
    *
-   * @param color
-   *            color integer or hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB,
-   *            AARRGGBB, #ARGB, or ARGB
+   * @param color color integer or hex color in format #RRGGBB, RRGGBB, #RGB, RGB, #AARRGGBB, AARRGGBB, #ARGB, or ARGB
    */
   public setColor(color: string | number | string): void {
+    const red = ColorUtils.getRed(color);
+    const green = ColorUtils.getGreen(color);
+    const blue = ColorUtils.getBlue(color);
+    const alpha = ColorUtils.getAlpha(color);
+    if (
+      red === undefined || green === undefined || blue === undefined
+    ) {
+      throw new Error("Invalid color, no RGB");
+    }
     if (typeof color === "number") {
-      this.setRed(ColorUtils.getRed(color));
-      this.setGreen(ColorUtils.getGreen(color));
-      this.setBlue(ColorUtils.getBlue(color));
+      this.setRed(red);
+      this.setGreen(green);
+      this.setBlue(blue);
       if (color > 16777215 || color < 0) {
-        this.setAlpha(ColorUtils.getAlpha(color));
+        if (alpha === undefined) {
+          throw new Error("Invalid color, no alpha");
+        }
+        this.setAlpha(alpha);
       }
     } else {
-      this.setRed(ColorUtils.getRed(color));
-      this.setGreen(ColorUtils.getGreen(color));
-      this.setBlue(ColorUtils.getBlue(color));
+      this.setRed(red);
+      this.setGreen(green);
+      this.setBlue(blue);
       const alpha = ColorUtils.getAlpha(color);
-      if (alpha != null) {
+      if (alpha !== undefined) {
         this.setAlpha(alpha);
       }
     }
@@ -213,14 +221,10 @@ export class Color {
   /**
    * Set the color with HSLA (hue, saturation, lightness, alpha) values
    *
-   * @param hue
-   *            hue value inclusively between 0.0 and 360.0
-   * @param saturation
-   *            saturation inclusively between 0.0 and 1.0
-   * @param lightness
-   *            lightness inclusively between 0.0 and 1.0
-   * @param alpha
-   *            alpha inclusively between 0.0 and 1.0
+   * @param hue hue value inclusively between 0.0 and 360.0
+   * @param saturation saturation inclusively between 0.0 and 1.0
+   * @param lightness lightness inclusively between 0.0 and 1.0
+   * @param alpha alpha inclusively between 0.0 and 1.0
    */
   public setColorByHSL(
     hue: number,
@@ -244,8 +248,7 @@ export class Color {
   /**
    * Set the red color as an integer or hex
    *
-   * @param red
-   *            red integer color inclusively between 0 and 255 or red hex color in format RR or R
+   * @param red red integer color inclusively between 0 and 255 or red hex color in format RR or R
    */
   public setRed(red: string | number): void {
     if (typeof red === "number") {
@@ -264,8 +267,7 @@ export class Color {
   /**
    * Set the green color as an integer orr hex
    *
-   * @param green
-   *            green integer color inclusively between 0 and 255 or in format GG or G
+   * @param green green integer color inclusively between 0 and 255 or in format GG or G
    */
   public setGreen(green: string | number): void {
     if (typeof green === "number") {
@@ -284,8 +286,7 @@ export class Color {
   /**
    * Set the blue color as an integer or hex
    *
-   * @param blue
-   *            blue integer color inclusively between 0 and 255 or in format BB or B
+   * @param blue blue integer color inclusively between 0 and 255 or in format BB or B
    */
   public setBlue(blue: string | number): void {
     if (typeof blue === "number") {
@@ -304,8 +305,7 @@ export class Color {
   /**
    * Set the opacity as an arithmetic float
    *
-   * @param opacity
-   *            opacity float color inclusively between 0.0 and 1.0
+   * @param opacity opacity float color inclusively between 0.0 and 1.0
    */
   public setOpacity(opacity: number) {
     ColorUtils.validateArithmeticRGB(opacity);
@@ -315,8 +315,7 @@ export class Color {
   /**
    * Set the alpha color as an arithmetic float or hex
    *
-   * @param alpha
-   *            alpha float color inclusively between 0.0 and 1.0 or hex color in format AA or A
+   * @param alpha alpha float color inclusively between 0.0 and 1.0 or hex color in format AA or A
    */
   public setAlpha(alpha: string | number): void {
     if (typeof alpha === "string") {
@@ -621,6 +620,13 @@ export class Color {
     return color;
   }
 
+  /**
+   * Set the RGB color values
+   * @param red red integer color inclusively between 0 and 255 or red hex color in format RR or R
+   * @param green green integer color inclusively between 0 and 255 or green hex color in format GG or G
+   * @param blue blue integer color inclusively between 0 and 255 or blue hex color in format BB or B
+   * @param alpha alpha integer color inclusively between 0 and 255 or alpha hex color in format AA or A or undefined to not include
+   */
   public setRGB(
     red: string | number,
     green: string | number,

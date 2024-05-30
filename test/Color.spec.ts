@@ -2282,7 +2282,7 @@ function validateColor(
   lightness: number,
 ) {
   const hexAlpha = "#FF" + hex.substring(1);
-  let hexShorthandAlpha = null;
+  let hexShorthandAlpha: string | undefined;
   if (hexShorthand.length <= 4) {
     hexShorthandAlpha = "#F" + hexShorthand.substring(1);
   } else {

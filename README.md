@@ -1,21 +1,11 @@
-# Color Javascript
-
-#### Color Lib
+# Color Library
 
 The Color Library was developed at the
 [National Geospatial-Intelligence Agency (NGA)](http://www.nga.mil/) in
 collaboration with [BIT Systems](https://www.caci.com/bit-systems/). The
 government has "unlimited rights" and is releasing this software to increase the
 impact of government investments by providing developers with the opportunity to
-take things in new directions. The software use, modification, and distribution
-rights are stipulated within the
-[MIT license](http://choosealicense.com/licenses/mit/).
-
-### Pull Requests
-
-If you'd like to contribute to this project, please make a pull request. We'll
-review the pull request and discuss the changes. All pull request contributions
-to this project will be released under the MIT license.
+take things in new directions.
 
 Software source code previously released under an open source license and then
 modified by NGA staff is considered a "joint work" (see 17 USC § 101); it is
@@ -25,22 +15,14 @@ the terms of the original open source license.
 
 ### About
 
-Color-js is a javascript library providing color representation with support for
-hex, RBG, arithmetic RBG, HSL, and integer colors.
-
-### Build and Installation
-
-![Build & Test](https://github.com/ngageoint/color-js/actions/workflows/build-test.yml/badge.svg)
-[![NPM](https://img.shields.io/npm/v/@ngageoint/color-js.svg)](https://www.npmjs.com/package/@ngageoint/color-js)
-[![Coverage Status](https://coveralls.io/repos/github/ngageoint/color-js/badge.svg)](https://coveralls.io/github/ngageoint/color-js)
-
-```sh
-$ npm install @ngageoint/color-js
-```
+Color is a library providing color representation with support for hex, RBG,
+arithmetic RBG, HSL, and integer colors.
 
 ### Usage
 
 ```javascript
+import { Color } from "@dewars/color";
+
 const rgb: Color = new Color();
 rgb.setRGB(154, 205, 50);
 const rgba: Color = new Color();

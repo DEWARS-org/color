@@ -19,7 +19,7 @@ Deno.test("test valid", () => {
   expect(ColorUtils.isValidHex("ffff")).toBe(true);
   expect(ColorUtils.isValidHex("#fFfF")).toBe(true);
 
-  expect(ColorUtils.isValidHex(null)).toBe(false);
+  expect(ColorUtils.isValidHex(undefined)).toBe(false);
   expect(ColorUtils.isValidHex("")).toBe(false);
 
   expect(ColorUtils.isValidHex("00000")).toBe(false);
@@ -65,7 +65,7 @@ Deno.test("test valid", () => {
   expect(ColorUtils.isValidHexSingle("E")).toBe(true);
   expect(ColorUtils.isValidHexSingle("4")).toBe(true);
 
-  expect(ColorUtils.isValidHexSingle(null)).toBe(false);
+  expect(ColorUtils.isValidHexSingle(undefined)).toBe(false);
   expect(ColorUtils.isValidHexSingle("")).toBe(false);
 
   expect(ColorUtils.isValidHexSingle("000")).toBe(false);
@@ -142,7 +142,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("A1B2C3")).toEqual("A1");
   expect(ColorUtils.getGreen("a1b2c3")).toEqual("b2");
   expect(ColorUtils.getBlue("a1b2C3")).toEqual("C3");
-  expect(ColorUtils.getAlpha("A1B2C3")).toBeNull();
+  expect(ColorUtils.getAlpha("A1B2C3")).toBeUndefined();
   expect(ColorUtils.getRed("D4A1B2C3")).toEqual("A1");
   expect(ColorUtils.getGreen("d4a1b2c3")).toEqual("b2");
   expect(ColorUtils.getBlue("d4a1b2C3")).toEqual("C3");
@@ -151,7 +151,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("#A1B2C3")).toEqual("A1");
   expect(ColorUtils.getGreen("#a1b2c3")).toEqual("b2");
   expect(ColorUtils.getBlue("#a1b2C3")).toEqual("C3");
-  expect(ColorUtils.getAlpha("#A1B2C3")).toBeNull();
+  expect(ColorUtils.getAlpha("#A1B2C3")).toBeUndefined();
   expect(ColorUtils.getRed("#D4A1B2C3")).toEqual("A1");
   expect(ColorUtils.getGreen("#d4a1b2c3")).toEqual("b2");
   expect(ColorUtils.getBlue("#d4a1b2C3")).toEqual("C3");
@@ -160,7 +160,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("ABC")).toEqual("AA");
   expect(ColorUtils.getGreen("abc")).toEqual("bb");
   expect(ColorUtils.getBlue("abC")).toEqual("CC");
-  expect(ColorUtils.getAlpha("ABC")).toBeNull();
+  expect(ColorUtils.getAlpha("ABC")).toBeUndefined();
   expect(ColorUtils.getRed("DABC")).toEqual("AA");
   expect(ColorUtils.getGreen("dabc")).toEqual("bb");
   expect(ColorUtils.getBlue("dabC")).toEqual("CC");
@@ -169,7 +169,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("#ABC")).toEqual("AA");
   expect(ColorUtils.getGreen("#abc")).toEqual("bb");
   expect(ColorUtils.getBlue("#abC")).toEqual("CC");
-  expect(ColorUtils.getAlpha("#ABC")).toBeNull();
+  expect(ColorUtils.getAlpha("#ABC")).toBeUndefined();
   expect(ColorUtils.getRed("#DABC")).toEqual("AA");
   expect(ColorUtils.getGreen("#dabc")).toEqual("bb");
   expect(ColorUtils.getBlue("#dabC")).toEqual("CC");
@@ -178,7 +178,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("010203")).toEqual("01");
   expect(ColorUtils.getGreen("010203")).toEqual("02");
   expect(ColorUtils.getBlue("010203")).toEqual("03");
-  expect(ColorUtils.getAlpha("010203")).toBeNull();
+  expect(ColorUtils.getAlpha("010203")).toBeUndefined();
   expect(ColorUtils.getRed("04010203")).toEqual("01");
   expect(ColorUtils.getGreen("04010203")).toEqual("02");
   expect(ColorUtils.getBlue("04010203")).toEqual("03");
@@ -187,7 +187,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("#010203")).toEqual("01");
   expect(ColorUtils.getGreen("#010203")).toEqual("02");
   expect(ColorUtils.getBlue("#010203")).toEqual("03");
-  expect(ColorUtils.getAlpha("#010203")).toBeNull();
+  expect(ColorUtils.getAlpha("#010203")).toBeUndefined();
   expect(ColorUtils.getRed("#04010203")).toEqual("01");
   expect(ColorUtils.getGreen("#04010203")).toEqual("02");
   expect(ColorUtils.getBlue("#04010203")).toEqual("03");
@@ -196,7 +196,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("123")).toEqual("11");
   expect(ColorUtils.getGreen("123")).toEqual("22");
   expect(ColorUtils.getBlue("123")).toEqual("33");
-  expect(ColorUtils.getAlpha("123")).toBeNull();
+  expect(ColorUtils.getAlpha("123")).toBeUndefined();
   expect(ColorUtils.getRed("4123")).toEqual("11");
   expect(ColorUtils.getGreen("4123")).toEqual("22");
   expect(ColorUtils.getBlue("4123")).toEqual("33");
@@ -205,7 +205,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("#123")).toEqual("11");
   expect(ColorUtils.getGreen("#123")).toEqual("22");
   expect(ColorUtils.getBlue("#123")).toEqual("33");
-  expect(ColorUtils.getAlpha("#123")).toBeNull();
+  expect(ColorUtils.getAlpha("#123")).toBeUndefined();
   expect(ColorUtils.getRed("#4123")).toEqual("11");
   expect(ColorUtils.getGreen("#4123")).toEqual("22");
   expect(ColorUtils.getBlue("#4123")).toEqual("33");
@@ -214,7 +214,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("112233")).toEqual("11");
   expect(ColorUtils.getGreen("112233")).toEqual("22");
   expect(ColorUtils.getBlue("112233")).toEqual("33");
-  expect(ColorUtils.getAlpha("112233")).toBeNull();
+  expect(ColorUtils.getAlpha("112233")).toBeUndefined();
   expect(ColorUtils.getRed("44112233")).toEqual("11");
   expect(ColorUtils.getGreen("44112233")).toEqual("22");
   expect(ColorUtils.getBlue("44112233")).toEqual("33");
@@ -223,7 +223,7 @@ Deno.test("test utils", () => {
   expect(ColorUtils.getRed("#112233")).toEqual("11");
   expect(ColorUtils.getGreen("#112233")).toEqual("22");
   expect(ColorUtils.getBlue("#112233")).toEqual("33");
-  expect(ColorUtils.getAlpha("#112233")).toBeNull();
+  expect(ColorUtils.getAlpha("#112233")).toBeUndefined();
   expect(ColorUtils.getRed("#44112233")).toEqual("11");
   expect(ColorUtils.getGreen("#44112233")).toEqual("22");
   expect(ColorUtils.getBlue("#44112233")).toEqual("33");
