@@ -621,7 +621,12 @@ export class Color {
     return color;
   }
 
-  public setRGB(red: any, green: any, blue: any, alpha?: any) {
+  public setRGB(
+    red: string | number,
+    green: string | number,
+    blue: string | number,
+    alpha?: string | number,
+  ) {
     this.setRed(red);
     this.setGreen(green);
     this.setBlue(blue);
